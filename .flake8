@@ -1,0 +1,7 @@
+[flake8]
+# Exclude virtual env, git, cache, AND build artifacts
+exclude = .git,__pycache__,venv,.venv,env,build,dist,*.egg-info,agent/prompts.py
+# Set line length to 88 (standard compatible with 'Black' formatter)
+max-line-length = 88
+# Ignore specific errors if needed
+extend-ignore = E203
