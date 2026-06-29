@@ -1,0 +1,674 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta name="description"
+        content="FinPersona-Bench: A Benchmark for Longitudinal Psychometric Stability of Autonomous Financial Agents.">
+  <meta name="keywords" content="FinPersona-Bench, LLM, Financial Agents, Mandate Salience Decay, Benchmark">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>FinPersona-Bench: Longitudinal Psychometric Stability of Autonomous Financial Agents</title>
+
+  <link href="https://fonts.googleapis.com/css?family=Google+Sans|Noto+Sans|Castoro"
+        rel="stylesheet">
+
+  <link rel="stylesheet" href="./static/css/bulma.min.css">
+  <link rel="stylesheet" href="./static/css/bulma-carousel.min.css">
+  <link rel="stylesheet" href="./static/css/bulma-slider.min.css">
+  <link rel="stylesheet" href="./static/css/fontawesome.all.min.css">
+  <link rel="stylesheet"
+        href="https://cdn.jsdelivr.net/gh/jpswalsh/academicons@1/css/academicons.min.css">
+  <link rel="stylesheet" href="./static/css/index.css">
+
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+  <script defer src="./static/js/fontawesome.all.min.js"></script>
+  <script src="./static/js/bulma-carousel.min.js"></script>
+  <script src="./static/js/bulma-slider.min.js"></script>
+  <script src="./static/js/index.js"></script>
+
+  <style>
+    :root {
+      --accent: #AA4E4A;
+      --accent-light: #c9706c;
+      --accent-dark: #8a3733;
+    }
+
+    .publication-title {
+      color: #1a1a1a;
+    }
+
+    a {
+      color: var(--accent);
+    }
+    a:hover {
+      color: var(--accent-dark);
+    }
+
+    .title.is-3 {
+      color: var(--accent);
+    }
+
+    .title.is-4 {
+      color: var(--accent-dark);
+    }
+
+    .title.is-5 {
+      color: var(--accent-dark);
+    }
+
+    .tag-pill {
+      display: inline-block;
+      background: var(--accent);
+      color: #fff;
+      border-radius: 20px;
+      padding: 4px 16px;
+      font-size: 0.85rem;
+      font-weight: 600;
+      margin: 4px 4px;
+    }
+
+    .button.is-dark {
+      background-color: var(--accent) !important;
+      border-color: var(--accent) !important;
+    }
+    .button.is-dark:hover {
+      background-color: var(--accent-dark) !important;
+      border-color: var(--accent-dark) !important;
+    }
+
+    /* Results table */
+    .results-table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 0.88rem;
+    }
+    .results-table th {
+      background: var(--accent);
+      color: #fff;
+      padding: 10px 12px;
+      text-align: center;
+      font-weight: 700;
+    }
+    .results-table th.left {
+      text-align: left;
+    }
+    .results-table td {
+      padding: 8px 12px;
+      text-align: center;
+      border-bottom: 1px solid #e8e8e8;
+    }
+    .results-table td.left {
+      text-align: left;
+      font-weight: 500;
+    }
+    .results-table tr:nth-child(even) {
+      background: #fdf5f5;
+    }
+    .results-table tr:hover {
+      background: #f5e5e4;
+    }
+    .results-table .group-header td {
+      background: #f0d8d7;
+      color: var(--accent-dark);
+      font-weight: 700;
+      font-size: 0.82rem;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      padding: 5px 12px;
+    }
+    .results-table .best {
+      font-weight: 700;
+      color: var(--accent-dark);
+    }
+    .results-table .helps {
+      color: #2a7a2a;
+      font-weight: 600;
+    }
+    .results-table .hurts {
+      color: #b03030;
+      font-weight: 600;
+    }
+    .scenario-tag {
+      display: inline-block;
+      border-radius: 4px;
+      padding: 2px 8px;
+      font-size: 0.78rem;
+      font-weight: 600;
+      margin-right: 4px;
+    }
+    .tag-flat   { background: #e8f4e8; color: #2a6a2a; }
+    .tag-crash  { background: #fde8e8; color: #8a2020; }
+    .tag-bull   { background: #fff3e0; color: #7a4a00; }
+
+    section hr { margin: 0; }
+
+    .figure-caption {
+      font-size: 0.78rem;
+      color: #666;
+      margin-top: 8px;
+      font-style: italic;
+    }
+  </style>
+</head>
+<body>
+
+<!-- ===================== HERO ===================== -->
+<section class="hero">
+  <div class="hero-body">
+    <div class="container is-max-desktop">
+      <div class="columns is-centered">
+        <div class="column has-text-centered">
+
+          <h1 class="title is-1 publication-title">
+            FinPersona-Bench: A Benchmark for Longitudinal Psychometric Stability of Autonomous Financial Agents
+          </h1>
+
+          <div class="is-size-5 publication-authors" style="margin-top: 1rem;">
+            <span class="author-block">Muhammad Usman Safder<sup>1*</sup>,&nbsp;</span>
+            <span class="author-block">Ayesha Gull<sup>1*</sup>,&nbsp;</span>
+            <span class="author-block">Rania Elbadry<sup>1</sup>,&nbsp;</span>
+            <span class="author-block">Fan Zhang<sup>2</sup>,&nbsp;</span>
+            <span class="author-block">Yankai Chen<sup>1,3</sup>,&nbsp;</span>
+            <span class="author-block">Xueqing Peng<sup>4</sup>,&nbsp;</span>
+            <span class="author-block">Xue (Steve) Liu<sup>1,3</sup>,&nbsp;</span>
+            <span class="author-block">Preslav Nakov<sup>1</sup>,&nbsp;</span>
+            <span class="author-block">Zhuohan Xie<sup>1</sup></span>
+          </div>
+
+          <div class="is-size-6 publication-authors" style="margin-top: 0.5rem; color: #666;">
+            <span class="author-block"><sup>1</sup>MBZUAI&nbsp;&nbsp;</span>
+            <span class="author-block"><sup>2</sup>The University of Tokyo&nbsp;&nbsp;</span>
+            <span class="author-block"><sup>3</sup>McGill University&nbsp;&nbsp;</span>
+            <span class="author-block"><sup>4</sup>TheFinAI</span>
+          </div>
+          <div class="is-size-7" style="color: #999; margin-top: 4px;">* Equal contribution</div>
+
+          <div style="margin-top: 1.2rem;">
+            <span class="tag-pill">Financial LLM Agents</span>
+            <span class="tag-pill">Behavioral Benchmarking</span>
+            <span class="tag-pill">Mandate Salience Decay</span>
+            <span class="tag-pill">18 LLMs Evaluated</span>
+          </div>
+
+          <div class="column has-text-centered" style="margin-top: 0.5rem;">
+            <div class="publication-links">
+              <span class="link-block">
+                <a href="COLM_FinPersona_Bench.pdf" class="external-link button is-normal is-rounded is-dark" target="_blank">
+                  <span class="icon"><i class="fas fa-file-pdf"></i></span>
+                  <span>Paper</span>
+                </a>
+              </span>
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===================== ABSTRACT ===================== -->
+<section class="section" style="background-color: #f5f5f5;">
+  <div class="container is-max-desktop">
+    <div class="columns is-centered has-text-centered">
+      <div class="column is-four-fifths">
+        <h2 class="title is-3">Abstract</h2>
+        <div class="content has-text-justified">
+          <p>
+            Large Language Models (LLMs) are increasingly deployed as autonomous financial agents initialized with explicit behavioral mandates such as <em>"preserve capital"</em> or <em>"avoid speculative bets"</em> that are meant to govern every decision throughout deployment. In practice, however, as market context accumulates over long horizons, these mandates gradually lose their behavioral influence -a phenomenon we formalize as <strong>Mandate Salience Decay (MSD)</strong>.
+          </p>
+          <p>
+            To measure MSD objectively, we introduce <strong>FinPersona-Bench</strong>, a simulation benchmark in which a synthetic market decouples observable price from hidden fundamental value, enabling falsifiable evaluation across three failure modes: trading without signal in calm markets, panic-selling during crashes, and ignoring fundamental value during speculative bubbles. Evaluating <strong>18 leading frontier and open-source LLMs</strong>, each assigned one of three behavioral profiles ranging from strict capital preservation to aggressive growth, shows that MSD compounds over time and is model-dependent. In crash scenarios, the behavioral gap between static agents and those receiving periodic mandate re-grounding grows <strong>4.4× from the first to the final quarter</strong> of the simulation. The effects of mandate re-grounding are not uniformly positive: it consistently helps conservative agents in low-signal markets but actively worsens behavior for aggressive agents in the same setting. These findings suggest that reliable long-horizon deployment requires selective, mandate-aware re-grounding based on agent profile and market regime.
+          </p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===================== FIRST FIGURE ===================== -->
+<section class="hero teaser">
+  <div class="container is-max-desktop">
+    <br>
+    <div class="hero-body">
+      <img src="./finpersona_figs/finpersona-first-figure.png"
+           alt="Mandate Salience Decay: target vs actual cash allocation over 200 trading days."
+           style="width: 80%; height: auto; display: block; margin: 0 auto;">
+      <br>
+      <h2 class="subtitle has-text-centered">
+        <strong>Mandate Salience Decay.</strong> Target vs. actual cash allocation over 200 trading days for a capital preservation agent. The growing gap illustrates how mandate influence weakens as market context accumulates.
+      </h2>
+    </div>
+  </div>
+</section>
+
+<hr>
+
+<!-- ===================== SYSTEM ARCHITECTURE ===================== -->
+<section class="section">
+  <div class="container is-max-desktop">
+    <h2 class="title is-3 has-text-centered">System Architecture</h2>
+    <div class="has-text-centered" style="margin-top: 1.5rem; margin-bottom: 0.75rem;">
+      <img src="./finpersona_figs/finpersona-system-diagram.png"
+           alt="FinPersona-Bench System Architecture Diagram"
+           style="width: 100%; height: auto;">
+      <p class="figure-caption">Figure 2: FinPersona-Bench system architecture showing the three-module pipeline.</p>
+    </div>
+    <div class="columns is-centered" style="margin-top: 1.5rem;">
+      <div class="column is-four-fifths">
+        <div class="content has-text-justified">
+          <p>
+            FinPersona-Bench consists of three tightly coupled components. The <strong>Synthetic Market Engine</strong> generates financial time series with mathematically defined properties, decoupling observable price <em>P<sub>t</sub></em> from hidden fundamental value <em>V<sub>t</sub></em> via scenario-specific stochastic processes. This provides an objective ground truth unavailable in historical markets.
+          </p>
+          <p>
+            The <strong>Agent Framework</strong> maps observable market state and a behavioral profile Psi (grounded in MBTI personas: ENTJ, ISFJ, INTJ) to a deterministic trade decision <em>A<sub>t</sub> = {action, quantity, rationale}</em>. Three architectural variants are compared: a <em>static baseline</em> (mandate once at initialization), a <em>placebo control</em> (length-matched boilerplate re-injected each step), and <em>mandate re-grounding</em> (core mandate re-injected at every decision step).
+          </p>
+          <p>
+            The <strong>Behavioral Evaluation Pipeline</strong> measures MSD across three failure modes using the hidden fundamental value as ground truth, capturing mandate drift, panic selling, and value decoupling independently.
+          </p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<hr>
+
+<!-- ===================== MARKET SCENARIOS ===================== -->
+<section class="section" style="background-color: #f5f5f5;">
+  <div class="container is-max-desktop">
+    <h2 class="title is-3 has-text-centered">Three Market Scenarios -Three Failure Modes</h2>
+    <div class="columns is-centered" style="margin-top: 1.5rem;">
+
+      <div class="column">
+        <div style="background:#fff; border-left: 4px solid #7a4a00; border-radius: 6px; padding: 20px 22px; height: 100%;">
+          <p><span class="scenario-tag tag-bull">Scenario A</span><strong>Bull Trap</strong></p>
+          <p style="font-size:0.88rem; margin-top: 8px; color: #444;">
+            Price initially tracks fundamental value, then decouples via cumulative FOMO drift creating a speculative bubble with surging volume. Tests whether agents distinguish legitimate growth from overvaluation.
+          </p>
+          <p style="font-size:0.82rem; color: var(--accent-dark); margin-top: 10px;"><strong>Failure mode:</strong> Value Decoupling -agents ignore hidden fundamental value and chase observable price.</p>
+          <p style="font-size:0.82rem; color: #555;"><strong>Metric:</strong> Rationality Gap (RG)</p>
+        </div>
+      </div>
+
+      <div class="column">
+        <div style="background:#fff; border-left: 4px solid var(--accent); border-radius: 6px; padding: 20px 22px; height: 100%;">
+          <p><span class="scenario-tag tag-crash">Scenario B</span><strong>Market Crash</strong></p>
+          <p style="font-size:0.88rem; margin-top: 8px; color: #444;">
+            A sharp price drop below fundamental value via a panic discount parameter δ ∈ {0.85, 0.92, 0.95}. Models a real-world liquidity crisis where assets become oversold and a rational agent should hold or buy.
+          </p>
+          <p style="font-size:0.82rem; color: var(--accent-dark); margin-top: 10px;"><strong>Failure mode:</strong> Panic Selling -agents liquidate under stress, amplifying their default behavioral tendencies.</p>
+          <p style="font-size:0.82rem; color: #555;"><strong>Metric:</strong> Caricature Index / Maximum Drawdown</p>
+        </div>
+      </div>
+
+      <div class="column">
+        <div style="background:#fff; border-left: 4px solid #2a6a2a; border-radius: 6px; padding: 20px 22px; height: 100%;">
+          <p><span class="scenario-tag tag-flat">Scenario C</span><strong>Flat Market</strong></p>
+          <p style="font-size:0.88rem; margin-top: 8px; color: #444;">
+            GARCH-like volatility with no significant trend (μ ≈ 0). No meaningful trading signals are present. Tests whether agents maintain their assigned mandate and target cash allocation without external pressure.
+          </p>
+          <p style="font-size:0.82rem; color: var(--accent-dark); margin-top: 10px;"><strong>Failure mode:</strong> Mandate Drift -agents progressively deviate from their target allocation as context grows.</p>
+          <p style="font-size:0.82rem; color: #555;"><strong>Metric:</strong> Mandate Adherence Score (MAS)</p>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<hr>
+
+<!-- ===================== TEMPORAL DECAY ===================== -->
+<section class="section">
+  <div class="container is-max-desktop">
+    <h2 class="title is-3 has-text-centered">Temporal Signatures of Mandate Decay</h2>
+    <div class="has-text-centered" style="margin-top: 1.5rem; margin-bottom: 0.75rem;">
+      <img src="./finpersona_figs/temporal_decay.png"
+           alt="Temporal signatures of MSD across three failure modes across four simulation quarters."
+           style="width: 100%; height: auto;">
+      <p class="figure-caption">Figure 3: Rolling metrics (MAS: flat market; RG: bull trap; CI: crash) averaged across models, personas, and seeds over four 50-day quartiles (T = 200). In the crash scenario, the static-memory gap grows monotonically, reaching approximately 4.4x its Q1 magnitude by Q4.</p>
+    </div>
+    <div class="columns is-centered" style="margin-top: 1.5rem;">
+      <div class="column is-four-fifths">
+        <div class="content has-text-justified">
+          <p>
+            Decomposing the 200-day simulation into quartiles reveals that the static-vs-memory divergence <strong>compounds over time</strong> rather than remaining constant. The crash scenario provides the clearest signature: the gap in cumulative capital drawdown grows from <strong>1.0x in Q1 to 4.4x by Q4</strong>.
+          </p>
+          <p>
+            In flat markets, static agents remain stable through Q2 before drifting upward from Q3, while memory agents maintain a stable behavioral anchor. In the bull trap, static agents become increasingly rational as conditions stabilize, whereas memory agents over-apply their conservative mandate throughout.
+          </p>
+          <p>
+            These temporally shifting patterns confirm that observed gaps represent genuine <em>progressive mandate erosion</em>, not fixed architectural offsets.
+          </p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<hr>
+
+<!-- ===================== PERSONA-SCENARIO HEATMAP ===================== -->
+<section class="section" style="background-color: #f5f5f5;">
+  <div class="container is-max-desktop">
+    <h2 class="title is-3 has-text-centered">Persona-Scenario Alignment</h2>
+    <div class="columns is-vcentered" style="margin-top: 1rem;">
+      <div class="column">
+        <div class="content has-text-justified">
+          <p>
+            Re-grounding effectiveness is not universal -it depends critically on the <strong>alignment between the assigned persona and market pressure</strong>. For the capital-preservation ISFJ persona, re-grounding suppresses flat-market drift in <strong>17 of 18 models</strong>, with five achieving perfect adherence (MAS = 0.000).
+          </p>
+          <p>
+            Conversely, the aggressive ENTJ persona produces a near mirror image. Re-grounding <em>worsens</em> mandate adherence in flat markets for <strong>16 of 18 models</strong> -re-injecting instructions to trade decisively in a signal-less market actively amplifies drift rather than suppressing it, by up to 156.4%.
+          </p>
+          <p>
+            The balanced INTJ persona yields mixed outcomes (11/18), sensitive to model-specific training rather than systematic environmental conflict. This bidirectional pattern holds across both MBTI and Big Five (OCEAN) persona frameworks.
+          </p>
+        </div>
+      </div>
+      <div class="column has-text-centered">
+        <img src="./finpersona_figs/persona_scenario_heatmap.png"
+             alt="Persona-Scenario Alignment heatmap showing number of models where re-grounding reduces MSD."
+             style="width: 100%; max-width: 560px;">
+        <p class="figure-caption">Figure 4: Number of models (out of 18) where re-grounding reduces MSD vs. the static baseline. Near-bidirectional split in flat markets (17/18 vs. 2/18) shows that persona content dictates re-grounding success.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<hr>
+
+<!-- ===================== PER-MODEL PROFILES ===================== -->
+<section class="section">
+  <div class="container is-max-desktop">
+    <h2 class="title is-3 has-text-centered">Per-Model MSD Profiles</h2>
+    <div class="has-text-centered" style="margin-bottom: 1.5rem;">
+      <img src="./finpersona_figs/per_model_representative.png"
+           alt="Per-model MSD profiles for Claude Haiku 4.5, GPT-4o-mini, Gemini 2.5 Pro, and Qwen2.5-7B."
+           style="width: 85%; height: auto;">
+      <p class="figure-caption">Figure 5: Re-grounding gap (%) for four representative models across three failure modes. Positive gaps indicate re-grounding reduces MSD.</p>
+    </div>
+    <div class="columns is-centered">
+      <div class="column is-four-fifths">
+        <div class="content has-text-justified">
+          <p>Individual model families reveal four distinct response profiles:</p>
+          <ul>
+            <li><strong>Claude family:</strong> Crash vulnerability scales inversely with capability. Claude Haiku 4.5 suffers 66.0% greater drawdown under static conditions; Opus 4.6 and Sonnet 4.6 show significantly higher baseline crash resilience.</li>
+            <li><strong>GPT family:</strong> Capacity-dependent reversal. Flagship models consistently benefit from re-grounding, but mini variants exhibit reversals up to 21.3% in the bull trap -re-injection creates mandate-signal interference in highly compressed models.</li>
+            <li><strong>Gemini Pro models:</strong> Unique universally beneficial profile -re-grounding reduces MSD across all three scenarios simultaneously, avoiding the bull trap rationality penalty seen in most other families.</li>
+            <li><strong>Qwen2.5-7B:</strong> Distinct dissociation failure -re-grounding consistently worsens behavior across all three scenarios. Mandate re-injection restores persona-consistent language without correcting underlying trading behavior.</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<hr>
+
+<!-- ===================== RESULTS TABLE ===================== -->
+<section class="section" style="background-color: #f5f5f5;">
+  <div class="container is-max-desktop">
+    <h2 class="title is-3 has-text-centered">Full Per-Model Results</h2>
+    <p class="has-text-centered" style="color: #555; margin-bottom: 1.5rem; font-size: 0.9rem;">
+      Relative performance difference (% Δ) of memory re-grounded agents vs. static baseline across three failure modes.<br>
+      <span class="helps">Green = re-grounding reduces MSD&nbsp;&nbsp;</span>
+      <span class="hurts">Red = re-grounding amplifies failure</span>
+    </p>
+    <div style="overflow-x: auto;">
+      <table class="results-table">
+        <thead>
+          <tr>
+            <th class="left" style="width:14%">Family</th>
+            <th class="left" style="width:20%">Model</th>
+            <th>
+              <span class="scenario-tag tag-flat" style="font-size:0.75rem;">Flat</span><br>
+              MAS %Δ
+            </th>
+            <th>
+              <span class="scenario-tag tag-crash" style="font-size:0.75rem;">Crash</span><br>
+              CI %Δ
+            </th>
+            <th>
+              <span class="scenario-tag tag-bull" style="font-size:0.75rem;">Bull Trap</span><br>
+              RG %Δ
+            </th>
+          </tr>
+        </thead>
+        <tbody>
+          <!-- Anthropic Claude -->
+          <tr class="group-header"><td colspan="5">Anthropic Claude Family</td></tr>
+          <tr>
+            <td class="left">Claude</td>
+            <td class="left">Haiku 4.5</td>
+            <td class="helps">+7.6%</td>
+            <td class="helps">+66.0%</td>
+            <td class="hurts">−10.7%</td>
+          </tr>
+          <tr>
+            <td class="left">Claude</td>
+            <td class="left">Sonnet 4.6</td>
+            <td class="helps">+0.1%</td>
+            <td class="helps">+8.3%</td>
+            <td class="hurts">−2.9%</td>
+          </tr>
+          <tr>
+            <td class="left">Claude</td>
+            <td class="left">Opus 4.6</td>
+            <td class="hurts">−0.5%</td>
+            <td class="helps">+38.3%</td>
+            <td class="hurts">−6.4%</td>
+          </tr>
+          <!-- OpenAI GPT -->
+          <tr class="group-header"><td colspan="5">OpenAI GPT Family</td></tr>
+          <tr>
+            <td class="left">GPT</td>
+            <td class="left">4o</td>
+            <td class="helps">+4.1%</td>
+            <td class="helps">+31.8%</td>
+            <td class="hurts">−11.6%</td>
+          </tr>
+          <tr>
+            <td class="left">GPT</td>
+            <td class="left">4o-Mini</td>
+            <td class="helps">+22.1%</td>
+            <td class="hurts">−11.3%</td>
+            <td class="hurts">−21.3%</td>
+          </tr>
+          <tr>
+            <td class="left">GPT</td>
+            <td class="left">4.1 Base</td>
+            <td class="helps">+16.0%</td>
+            <td class="helps">+30.9%</td>
+            <td class="hurts">−7.4%</td>
+          </tr>
+          <tr>
+            <td class="left">GPT</td>
+            <td class="left">4.1 Mini</td>
+            <td class="helps">+9.6%</td>
+            <td class="hurts">−21.3%</td>
+            <td class="hurts">−6.7%</td>
+          </tr>
+          <tr>
+            <td class="left">GPT</td>
+            <td class="left">5 Mini</td>
+            <td class="helps">+37.8%</td>
+            <td class="helps">+5.1%</td>
+            <td class="helps best">+16.5%</td>
+          </tr>
+          <tr>
+            <td class="left">GPT</td>
+            <td class="left">5.4 Base</td>
+            <td class="helps">+35.1%</td>
+            <td class="helps">+11.3%</td>
+            <td class="hurts">−8.1%</td>
+          </tr>
+          <tr>
+            <td class="left">GPT</td>
+            <td class="left">5.4 Mini</td>
+            <td class="helps">+3.0%</td>
+            <td class="hurts">−9.7%</td>
+            <td class="hurts">−9.0%</td>
+          </tr>
+          <!-- Google Gemini -->
+          <tr class="group-header"><td colspan="5">Google Gemini Family</td></tr>
+          <tr>
+            <td class="left">Gemini</td>
+            <td class="left">2.5 Flash</td>
+            <td class="helps">+28.2%</td>
+            <td class="hurts">−28.3%</td>
+            <td class="hurts">−0.8%</td>
+          </tr>
+          <tr>
+            <td class="left">Gemini</td>
+            <td class="left">2.5 Pro</td>
+            <td class="helps">+8.4%</td>
+            <td class="helps">+3.8%</td>
+            <td class="helps">+4.1%</td>
+          </tr>
+          <tr>
+            <td class="left">Gemini</td>
+            <td class="left">3.1 Pro Preview</td>
+            <td class="helps">+11.6%</td>
+            <td class="helps">+21.6%</td>
+            <td class="helps">+7.5%</td>
+          </tr>
+          <!-- DeepSeek -->
+          <tr class="group-header"><td colspan="5">Independent Baseline</td></tr>
+          <tr>
+            <td class="left">DeepSeek</td>
+            <td class="left">V3 Chat</td>
+            <td class="helps">+13.6%</td>
+            <td class="helps">+21.0%</td>
+            <td class="hurts">−8.8%</td>
+          </tr>
+          <!-- Open Source -->
+          <tr class="group-header"><td colspan="5">Open-Source Models</td></tr>
+          <tr>
+            <td class="left">Meta</td>
+            <td class="left">Llama-3.1-8B</td>
+            <td class="helps best">+40.5%</td>
+            <td class="helps">+19.5%</td>
+            <td class="hurts">−15.3%</td>
+          </tr>
+          <tr>
+            <td class="left">Google</td>
+            <td class="left">Gemma-2-9B</td>
+            <td class="hurts">−2.7%</td>
+            <td class="helps">+33.9%</td>
+            <td class="hurts">−26.3%</td>
+          </tr>
+          <tr>
+            <td class="left">Alibaba</td>
+            <td class="left">Qwen2.5-7B</td>
+            <td class="hurts">−5.4%</td>
+            <td class="hurts best">−59.1%</td>
+            <td class="hurts">−28.8%</td>
+          </tr>
+          <tr>
+            <td class="left">Google</td>
+            <td class="left">Gemma-3-4B</td>
+            <td class="helps">+3.3%</td>
+            <td class="hurts">−15.0%</td>
+            <td class="hurts">−18.4%</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+    <p style="font-size:0.78rem; color:#777; margin-top:10px; text-align:center;">
+      Table 11: Full Per-Model MSD Gaps. Relative performance difference (%&Delta;) between memory re-grounded and static agents across the three evaluated failure modes: Mandate Drift (MAS), Panic Selling (CI), and Value Decoupling (RG). Positive values indicate that memory re-grounding successfully mitigated mandate decay; negative values indicate that re-grounding amplified the failure mode.
+    </p>
+
+    <!-- Aggregate summary row -->
+    <div class="columns is-centered" style="margin-top: 2.5rem;">
+      <div class="column is-four-fifths">
+        <h3 class="title is-4 has-text-centered">Three Failure Modes of MSD</h3>
+        <table class="results-table" style="margin-top: 1rem;">
+          <thead>
+            <tr>
+              <th class="left">Failure Mode</th>
+              <th class="left">Scenario</th>
+              <th class="left">Metric</th>
+              <th>Static</th>
+              <th>Memory</th>
+              <th>Gap%</th>
+              <th>p-value</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td class="left">Mandate Drift</td>
+              <td class="left"><span class="scenario-tag tag-flat">Flat</span></td>
+              <td class="left">MAS ↓</td>
+              <td>0.391 ± 0.201</td>
+              <td>0.342 ± 0.206</td>
+              <td class="helps">−12.7%</td>
+              <td>0.028 <sup>†</sup></td>
+            </tr>
+            <tr>
+              <td class="left">Panic Selling</td>
+              <td class="left"><span class="scenario-tag tag-crash">Crash</span></td>
+              <td class="left">CI ↑</td>
+              <td>−26.18 ± 14.29</td>
+              <td>−22.89 ± 17.44</td>
+              <td class="helps">−12.6%</td>
+              <td>0.002 <sup>‡</sup></td>
+            </tr>
+            <tr>
+              <td class="left">Value Decoupling</td>
+              <td class="left"><span class="scenario-tag tag-bull">Bull Trap</span></td>
+              <td class="left">RG ↑</td>
+              <td>85.9 ± 11.1</td>
+              <td>78.4 ± 18.7</td>
+              <td class="hurts">+8.8%</td>
+              <td>&lt;0.001 <sup>§</sup></td>
+            </tr>
+          </tbody>
+        </table>
+        <p style="font-size:0.78rem; color:#777; margin-top:8px; text-align:center;">
+          Table 1: Three Failure Modes of MSD. Static vs. memory re-grounded performance across 18 models, 3 personas, and 5 seeds (N = 270 pairs/metric). Gap% is the relative change from static to memory. Negative gaps in MAS and CI favor memory (less deviation/drawdown); positive gaps in RG favor static (higher rationality). Optimal direction marked by ↓ / ↑. Wilcoxon significance: <sup>†</sup>p &lt; 0.05, <sup>‡</sup>p &lt; 0.01, <sup>§</sup>p &lt; 0.001.
+        </p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<hr>
+
+<!-- ===================== CONCLUSION ===================== -->
+<section class="section">
+  <div class="container is-max-desktop">
+    <div class="columns is-centered">
+      <div class="column is-four-fifths">
+        <h2 class="title is-3 has-text-centered">Conclusions</h2>
+        <div class="content has-text-justified">
+          <p>
+            FinPersona-Bench demonstrates that <strong>Mandate Salience Decay is a compounding behavioral phenomenon</strong> distinct from reasoning errors: agents can violate their behavioral mandates while still making locally coherent and even profitable trades. MSD widens the behavioral gap in market crashes by <strong>4.4×</strong> over the simulation horizon.
+          </p>
+          <p>
+            A placebo control confirms that re-grounding effects are driven by <strong>mandate semantic content</strong> rather than positional recency. A Big Five validation shows MSD is not an artifact of the MBTI framework. Crucially, re-grounding effectiveness depends strongly on <strong>persona-scenario alignment</strong>: enforcing misaligned mandates in speculative regimes or for aggressive personas actively degrades agent rationality.
+          </p>
+          <p>
+            These findings point toward a practical design principle: <em>selective, mandate-aware re-grounding</em> tuned to agent profile and market regime, rather than blanket universal application. Future work will pursue mechanistic explanations of mandate token salience loss, extend injection frequency ablations across the full model suite, and apply the decoupled ground-truth methodology to sensitive deployment domains such as medical triage and legal compliance.
+          </p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<hr>
+
+<!-- ===================== FOOTER ===================== -->
+<footer class="footer">
+  <div class="container">
+    <div class="content has-text-centered">
+      <p>
+        Website template borrowed from the <a href="https://nerfies.github.io/" target="_blank">Nerfies</a> project page.
+      </p>
+    </div>
+  </div>
+</footer>
+
+</body>
+</html>
