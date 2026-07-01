@@ -1,4 +1,4 @@
-# <img width="80" alt="FinPersona Logo" src="https://github.com/user-attachments/assets/5e09882c-f303-4fff-a112-438520448771" /> FinPersona-Bench: A Benchmark for Longitudinal Psychometric Stability of Autonomous Financial Agents
+ <img width="80" alt="FinPersona Logo" src="https://github.com/user-attachments/assets/5e09882c-f303-4fff-a112-438520448771" /> FinPersona-Bench: A Benchmark for Longitudinal Psychometric Stability of Autonomous Financial Agents
 
 FinPersona-Bench is a simulation benchmark for measuring **Mandate Salience Decay (MSD)** — the tendency of LLM-based financial agents to gradually drift from their behavioral mandates as market context accumulates over long horizons. A synthetic market decouples observable price from hidden fundamental value, enabling falsifiable evaluation of 18 frontier and open-source LLMs across three market regimes and three behavioral profiles.
 
